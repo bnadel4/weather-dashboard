@@ -1,6 +1,6 @@
 var searchButton = document.getElementById('searchButton');
-var key = process.env.WEATHER_KEY;
-var currentWeatherEL = document.getElementById('currentWeather');
+import key from '../token.js';
+var currentWeatherEl = document.getElementById('currentWeather');
 
 searchButton.addEventListener('click', function() {
   var userCity = document.getElementById('searchBar').value;
@@ -19,14 +19,23 @@ function getCurrent(data) {
       return response.json();
     })
     .then(function (data) {
-      console.log('current temp', data.main.temp);
-      // console.log('current icon', data.weather.icon, "http://openweathermap.org/img/wn/${data.weather.icon}@2x.png");
-      console.log('current wind', data.wind.speed);
-      console.log('current humidity', data.main.humidity);
+      console.log('data', data);
 
-      var currentTempEL = document.createElement('p');
-      currentTempEL.textContent = data.main.temp;
-      currentWeatherEL.appendChild(currentTempEL);
+      var currentTempEl = document.createElement('p');
+      currentTempEl.textContent = 'Current Temp: ' + data.main.temp;
+      currentWeatherEl.appendChild(currentTempEl);
+
+      var currentWindEl = document.createElement('p');
+      currentWindEl.textContent = 'Current Wind Speed: ' + data.wind.speed;
+      currentWeatherEl.appendChild(currentWindEl);
+
+      var currentHumidityEl = document.createElement('p');
+      currentHumidityEl.textContent = 'Current Humidity: ' + data.main.humidity;
+      currentWeatherEl.appendChild(currentHumidityEl);
+
+      var weatherImgEl = document.createElement('img');
+      weatherImgEl.setAttribute('src', `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`);
+      currentWeatherEl.appendChild(weatherImgEl);
     });
 }
 
@@ -54,7 +63,7 @@ function getCoordinates(userCity) {
       return response.json();
     })
     .then(function (data) {
-      getForecast(data);
+      // getForecast(data);
       getCurrent(data);
     });
 };
