@@ -9,6 +9,22 @@ searchButton.addEventListener('click', function() {
 });
 
 
+function getForecast(data) {
+  console.log('data inside getForecast', data);
+  var lat = data[0].lat;
+  var lon = data[0].lon;
+  var requestCity = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${key}&units=imperial`;
+
+  fetch(requestCity)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log('data', data);
+      console.log('temp', data.list[0].main.temp);
+    });
+}
+
 function getCoordinates(userCity) {
   var requestCoordinates = `http://api.openweathermap.org/geo/1.0/direct?q=${userCity}&limit=5&appid=${key}`;
 
