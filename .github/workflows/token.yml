@@ -1,6 +1,4 @@
 steps:
   - name: Weather token
-    with: # Set the secret as an input
-      super_secret: ${{ TOKEN }}
-    env: # Or as an environment variable
-      super_secret: ${{ TOKEN }}
+    env:
+      TOKEN: ${{ TOKEN }}
