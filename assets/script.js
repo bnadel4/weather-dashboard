@@ -80,7 +80,7 @@ function getForecast(data) {
       var dateEl = document.createElement('h3');
       dateEl.setAttribute('class', 'card-title');
       var forDT = i*8+5;
-      var day = new Date (data.list[forDT].dt*1000);
+      var day = new Date(data.list[forDT].dt*1000);
       dateEl.textContent = day.toDateString();
       var span = document.createElement('span');
 
