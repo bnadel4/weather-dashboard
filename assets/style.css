@@ -1,0 +1,14 @@
+#search-container {
+  display: flex;
+  gap: 10px;
+}
+
+.forecastcard {
+  width: 18rem;
+}
+
+#forecastWeather {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}

@@ -4,16 +4,32 @@ var searchButton = document.getElementById('searchButton');
 var currentWeatherEl = document.getElementById('currentWeather');
 var forecastWeatherEl = document.getElementById('forecastWeather');
 var userCity; 
+var cityName= '';
+console.log(cityName);
 
 searchButton.addEventListener('click', function() {
   userCity = document.getElementById('searchBar').value;
   getCoordinates(userCity);
 });
 
+function getCoordinates(userCity) {
+  var requestCoordinates = `http://api.openweathermap.org/geo/1.0/direct?q=${userCity}&limit=5&appid=${TOKEN}`;
+
+  fetch(requestCoordinates)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      getForecast(data);
+      getCurrent(data);
+    });
+};
+
 function getCurrent(data) {
   console.log('data inside getCurrent', data);
   var lat = data[0].lat;
   var lon = data[0].lon;
+  cityName = data[0].name;
   var requestCityCurrent = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${TOKEN}&units=imperial`;
 
   fetch(requestCityCurrent)
@@ -23,7 +39,7 @@ function getCurrent(data) {
     .then(function (data) {
 
       var userCityEl = document.createElement('h2');
-      userCityEl.textContent = userCity;
+      userCityEl.textContent = cityName;
       currentWeatherEl.appendChild(userCityEl);
 
       var currentTempEl = document.createElement('p');
@@ -44,20 +60,6 @@ function getCurrent(data) {
     });
 }
 
-
-function getCoordinates(userCity) {
-  var requestCoordinates = `http://api.openweathermap.org/geo/1.0/direct?q=${userCity}&limit=5&appid=${TOKEN}`;
-
-  fetch(requestCoordinates)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      getForecast(data);
-      // getCurrent(data);
-    });
-};
-
 function getForecast(data) {
   var lat = data[0].lat;
   var lon = data[0].lon;
@@ -68,27 +70,36 @@ function getForecast(data) {
       return response.json();
     })
     .then(function (data) {
-      console.log('5 day forecast data', data);
-      console.log('city name', data.city.name);
-      console.log('temp', data.list[0].main.temp);
-      console.log('wind', data.list[0].wind.speed);
-      console.log('humidity', data.list[0].main.humidity);
-      console.log('icon code', data.list[0].weather[0].icon);
-
-      var forecastNameEl = document.createElement('h2');
-      forecastNameEl.textContent = data.city.name;
-      forecastWeatherEl.appendChild(forecastNameEl);
+      forecastWeatherEl.innerHTML= '';
+      for (var i=0; i < 7; i++) {
+        var forecastCards = document.createElement('div');
+        forecastCards.setAttribute('class', 'card forecastcard');
+        var cardBody = document.createElement('div');
+        cardBody.setAttribute('class', 'card-body');
+      
+      var dateEl = document.createElement('h3');
+      dateEl.setAttribute('class', 'card-title');
+      var forDT = i*8+5;
+      var day = new Date (data.list[forDT].dt*1000);
+      dateEl.textContent = day.toDateString();
+      var span = document.createElement('span');
 
       var forecastTempEl = document.createElement('p');
-      forecastTempEl.textContent = 'Current Temp: ' + data.list[0].main.temp;
-      forecastWeatherEl.appendChild(forecastTempEl);
+      forecastTempEl.textContent = 'Current Temp: ' + data.list[i].main.temp;
 
       var forecastWindEl = document.createElement('p');
-      forecastWindEl.textContent = 'Wind: ' + data.list[0].wind.speed + 'mph';
-      forecastWeatherEl.appendChild(forecastWindEl);
+      forecastWindEl.textContent = 'Wind: ' + data.list[i].wind.speed + 'mph';
 
       var forecastHumidityEl = document.createElement('p');
-      forecastHumidityEl.textContent = 'Humidity: ' + data.list[0].main.humidity + '%';
-      forecastWeatherEl.appendChild(forecastHumidityEl);
+      forecastHumidityEl.textContent = 'Humidity: ' + data.list[i].main.humidity + '%';
+
+      var forecastWeatherImgEl = document.createElement('img');
+      forecastWeatherImgEl.setAttribute('src', `https://openweathermap.org/img/wn/${data.list[i].weather[0].icon}.png`);
+      span.append(forecastWeatherImgEl);
+      dateEl.append(span);
+      cardBody.append(dateEl, forecastTempEl, forecastWindEl, forecastHumidityEl);
+      forecastCards.append(cardBody);
+      forecastWeatherEl.append(forecastCards);  
+      }
     });
 }
