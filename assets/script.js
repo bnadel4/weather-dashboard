@@ -5,7 +5,6 @@ var currentWeatherEl = document.getElementById('currentWeather');
 var forecastWeatherEl = document.getElementById('forecastWeather');
 var userCity; 
 var cityName= '';
-console.log(cityName);
 
 searchButton.addEventListener('click', function() {
   userCity = document.getElementById('searchBar').value;
@@ -13,7 +12,7 @@ searchButton.addEventListener('click', function() {
 });
 
 function getCoordinates(userCity) {
-  var requestCoordinates = `http://api.openweathermap.org/geo/1.0/direct?q=${userCity}&limit=5&appid=${TOKEN}`;
+  var requestCoordinates = `https://api.openweathermap.org/geo/1.0/direct?q=${userCity}&limit=5&appid=${TOKEN}`;
 
   fetch(requestCoordinates)
     .then(function (response) {
