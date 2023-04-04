@@ -54,7 +54,7 @@ function getCurrent(data) {
       currentWeatherEl.appendChild(currentHumidityEl);
 
       var weatherImgEl = document.createElement('img');
-      weatherImgEl.setAttribute('src', `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`);
+      weatherImgEl.setAttribute('src', `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`);
       currentWeatherEl.appendChild(weatherImgEl);
     });
 }
