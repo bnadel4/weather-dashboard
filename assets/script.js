@@ -29,7 +29,7 @@ function getCurrent(data) {
   var lat = data[0].lat;
   var lon = data[0].lon;
   cityName = data[0].name;
-  var requestCityCurrent = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${TOKEN}&units=imperial`;
+  var requestCityCurrent = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${TOKEN}&units=imperial`;
 
   fetch(requestCityCurrent)
     .then(function (response) {
@@ -62,7 +62,7 @@ function getCurrent(data) {
 function getForecast(data) {
   var lat = data[0].lat;
   var lon = data[0].lon;
-  var requestCity = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${TOKEN}&units=imperial`;
+  var requestCity = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${TOKEN}&units=imperial`;
 
   fetch(requestCity)
     .then(function (response) {
