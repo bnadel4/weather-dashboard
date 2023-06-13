@@ -134,7 +134,7 @@ function getForecast(data) {
         var span = document.createElement('span');
 
         var forecastTempEl = document.createElement('p');
-        forecastTempEl.textContent = 'Current Temp: ' + data.list[i].main.temp;
+        forecastTempEl.textContent = 'Current Temp: ' + data.list[i].main.temp + '°F';
 
         var forecastWindEl = document.createElement('p');
         forecastWindEl.textContent = 'Wind: ' + data.list[i].wind.speed + 'mph';

@@ -64,11 +64,6 @@ li:hover {
   margin: 1em auto;
 }
 
-#clearButton {
-  background-color: red;
-  color: cornsilk;
-}
-
 .card-body {
   background-color: navy;
   color: cornsilk;
@@ -100,7 +95,7 @@ footer {
     gap: 10px;
     padding: 1em;
     margin: 2em;
-    width: 30%;
+    width: 40%;
     overflow: scroll;
   }
 
