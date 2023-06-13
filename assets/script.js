@@ -1,6 +1,7 @@
 import TOKEN from '../token.js';
 
 var searchButton = document.getElementById('searchButton');
+var clearButton = document.getElementById('clearButton');
 var cityList = document.querySelector('.list-group');
 var currentWeatherEl = document.getElementById('currentWeather');
 var forecastWeatherEl = document.getElementById('forecastWeather');
@@ -8,7 +9,7 @@ var forecastTitleEl = document.getElementById('forecastWeatherTitle');
 var searchHistoryEl = document.getElementById('searchHistory');
 var userCity; 
 var cityName= '';
-var searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
+var searchHistory = JSON.parse(localStorage.getItem('searchHistory')) ? JSON.parse(localStorage.getItem('searchHistory')) : [];
 
 displaySearchHistory();
 
@@ -17,6 +18,11 @@ searchButton.addEventListener('click', function() {
   getCoordinates(userCity);
   getAndSetSearchHistory(userCity);
 });
+
+clearButton.addEventListener('click', function() {
+  localStorage.removeItem('searchHistory');
+  location.reload();
+})
 
 cityList.addEventListener('click', event => {
   userCity = event.target.textContent;
@@ -114,7 +120,7 @@ function getForecast(data) {
       fiveDayForecastTitle.textContent = '5-Day Forecast:';
       forecastTitleEl.appendChild(fiveDayForecastTitle);
 
-      for (var i=0; i < 7; i++) {
+      for (var i=0; i < 5; i++) {
         var forecastCards = document.createElement('div');
         forecastCards.setAttribute('class', 'card forecastcard');
         var cardBody = document.createElement('div');
