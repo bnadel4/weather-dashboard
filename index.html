@@ -10,21 +10,34 @@
     <title>Weather Dashboard</title>
   </head>
   <body>
+    <header>
+      <h1>Weather Dashboard</h1>
+    </header>
  
-    <div id="search-container" class="col-3">
-      <input 
-      type="text"
-      name="searchBar"
-      id="searchBar"
-      placeholder="type a city"
-      class="form-control"
-      />
-      <button id="searchButton" class="btn btn-info">Search</button>
-    </div>
+    <section>
+      <aside>
+        <h2>Search for a City:</h2>
+        <input 
+        type="text"
+        name="searchBar"
+        id="searchBar"
+        placeholder="San Diego"
+        class="form-control"
+        />
+        <button id="searchButton" class="btn btn-info">Search</button>
 
-    
+        <ul id="searchHistory" class="list-group"></ul>
+      </aside>
+    </section>
+
     <section id="currentWeather"></section>
+    <h3 id="forecastWeatherTitle"></h3>
     <section id="forecastWeather"></section>
+  </section>
+    
+  <footer>
+    <h4>Weather Dashboard | Jamie Nadel</h4>
+  </footer> 
 
     <script src="./assets/script.js" type="module"></script>  
   </body>
